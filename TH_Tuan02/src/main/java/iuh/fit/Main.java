@@ -4,17 +4,25 @@ import iuh.fit.factoryPattern.Logistics;
 import iuh.fit.factoryPattern.RoadLogistics;
 import iuh.fit.factoryPattern.SeaLogistics;
 import iuh.fit.singletonPattern.Calculator;
+import iuh.fit.statePattern.Order;
 import java.util.Scanner;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Logistics logistics = new RoadLogistics();
-        logistics.planDelivery();
 
-        logistics = new SeaLogistics();
-        logistics.planDelivery();
+        Order order1 = new Order("ORD001", "Nguyen Van A", 500000);
+        order1.displayInfo();
+        order1.processOrder();
+        order1.processOrder();
+        order1.displayInfo();
+        System.out.println("--------------------------------------\n");
+
+        Order order2 = new Order("ORD002", "Tran Thi B", 300000);
+        order2.displayInfo();
+        order2.cancelOrder();
+        order2.displayInfo();
     }
 
     private static void showWelcome() {
@@ -186,7 +194,113 @@ public class Main {
     }
 
     private static void handleStatePattern() {
-        showNotReady("STATE PATTERN");
+        System.out.println("\n==============================================");
+        System.out.println("              STATE PATTERN                 ");
+        System.out.println("==============================================");
+
+        System.out.println("MO TA:");
+        System.out.println(" - State Pattern cho phep doi hanh vi cua doi tuong dua vao trang thai");
+        System.out.println(" - Vi du: Quan ly don hang voi cac trang thai khac nhau");
+        System.out.println(" - Moi trang thai co hanh vi rieng (check info, pack, ship, cancel)");
+        System.out.println();
+        System.out.println("HE THONG: QUAN LY DON HANG");
+        System.out.println(" - Trang thai: Moi tao -> Dang xu ly -> Da giao");
+        System.out.println(" - Co the huy don hang o bat ky trang thai nao");
+        System.out.println();
+
+        runOrderDemo();
+    }
+
+    private static void runOrderDemo() {
+        while (true) {
+            System.out.println("----------------------------------------------");
+            System.out.println("        MENU QUAN LY DON HANG - STATE       ");
+            System.out.println("----------------------------------------------");
+            System.out.println("1. Tao don hang moi                           ");
+            System.out.println("2. Xem tat ca don hang (demo co san)         ");
+            System.out.println("0. Quay lai menu chinh                        ");
+            System.out.println("----------------------------------------------");
+
+            System.out.print("Lua chon: ");
+            String choice = readChoice();
+
+            if (matches(choice, "1", "tao")) {
+                createNewOrder();
+            } else if (matches(choice, "2", "xem", "demo")) {
+                demoOrderStates();
+            } else if (matches(choice, "0", "back", "quaylai")) {
+                return;
+            } else {
+                System.out.println("Lua chon khong hop le.");
+            }
+        }
+    }
+
+    private static void createNewOrder() {
+        System.out.print("Nhap ID don hang: ");
+        String orderId = readChoice();
+
+        System.out.print("Nhap ten khach hang: ");
+        String customerName = readChoice();
+
+        System.out.print("Nhap so tien: ");
+        double amount = getDoubleInput();
+
+        Order order = new Order(orderId, customerName, amount);
+        order.displayInfo();
+
+        int step = 1;
+        while (true) {
+            System.out.println("----------------------------------------------");
+            System.out.println("        MENU XU LY DON HANG - BUOC " + step + "     ");
+            System.out.println("----------------------------------------------");
+            System.out.println("1. Tien hanh buoc tiep theo");
+            System.out.println("2. Xem thong tin don hang");
+            System.out.println("3. Huy don hang");
+            System.out.println("0. Thoat");
+            System.out.println("----------------------------------------------");
+
+            System.out.print("Lua chon: ");
+            String choice = readChoice();
+
+            if (matches(choice, "1", "tien")) {
+                order.processOrder();
+                step++;
+                if (step > 3) {
+                    System.out.println(">>> Don hang hoat dong hoan tat <<<\n");
+                    break;
+                }
+            } else if (matches(choice, "2", "xem", "info")) {
+                order.displayInfo();
+            } else if (matches(choice, "3", "huy")) {
+                order.cancelOrder();
+                break;
+            } else if (matches(choice, "0", "exit", "thoat")) {
+                break;
+            } else {
+                System.out.println("Lua chon khong hop le.");
+            }
+        }
+    }
+
+    private static void demoOrderStates() {
+        System.out.println("\n=== DEMO 1: Don hang hop le ===\n");
+
+        Order order1 = new Order("ORD001", "Nguyen Van A", 500000);
+        order1.displayInfo();
+        order1.processOrder();
+        order1.processOrder();
+        order1.displayInfo();
+
+        System.out.println("\n=== DEMO 2: Don hang bi huy ===\n");
+
+        Order order2 = new Order("ORD002", "Tran Thi B", 300000);
+        order2.displayInfo();
+        order2.processOrder();
+        order2.cancelOrder();
+        order2.displayInfo();
+
+        pause();
     }
 
     private static void handleStrategyPattern() {
