@@ -1,5 +1,8 @@
 package iuh.fit;
 
+import iuh.fit.factoryPattern.Logistics;
+import iuh.fit.factoryPattern.RoadLogistics;
+import iuh.fit.factoryPattern.SeaLogistics;
 import iuh.fit.singletonPattern.Calculator;
 import java.util.Scanner;
 
@@ -7,17 +10,11 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println("===== DEMO SINGLETON - CALCULATOR =====");
+        Logistics logistics = new RoadLogistics();
+        logistics.planDelivery();
 
-        Calculator calc1 = Calculator.getInstance();
-        calc1.add(10);
-        calc1.multiply(2);
-        System.out.printf("Ket qua sau 2 phep tinh (calc1): %.4f%n", calc1.getResult());
-
-        Calculator calc2 = Calculator.getInstance();
-        System.out.printf("Ket qua khi lay may tinh moi (calc2): %.4f%n", calc2.getResult());
-
-        System.out.println("Kiem tra Singleton (calc1 == calc2): " + (calc1 == calc2));
+        logistics = new SeaLogistics();
+        logistics.planDelivery();
     }
 
     private static void showWelcome() {
