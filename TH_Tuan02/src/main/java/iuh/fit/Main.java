@@ -4,17 +4,26 @@ import iuh.fit.singletonPattern.Calculator;
 import java.util.Scanner;
 
 public class Main {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        showWelcome();
-        showMainMenu();
+        System.out.println("===== DEMO SINGLETON - CALCULATOR =====");
+
+        Calculator calc1 = Calculator.getInstance();
+        calc1.add(10);
+        calc1.multiply(2);
+        System.out.printf("Ket qua sau 2 phep tinh (calc1): %.4f%n", calc1.getResult());
+
+        Calculator calc2 = Calculator.getInstance();
+        System.out.printf("Ket qua khi lay may tinh moi (calc2): %.4f%n", calc2.getResult());
+
+        System.out.println("Kiem tra Singleton (calc1 == calc2): " + (calc1 == calc2));
     }
 
     private static void showWelcome() {
         System.out.println("==============================================");
-        System.out.println("          DESIGN PATTERNS DEMO SYSTEM        ");
-        System.out.println("              Chao mung ban den!              ");
+        System.out.println("          HE THONG DEMO DESIGN PATTERN       ");
+        System.out.println("            Chao mung ban den!               ");
         System.out.println("==============================================");
         System.out.println();
     }
@@ -24,38 +33,33 @@ public class Main {
             System.out.println("----------------------------------------------");
             System.out.println("             CHON DESIGN PATTERN             ");
             System.out.println("----------------------------------------------");
-            System.out.println("1. Singleton Pattern                         ");
-            System.out.println("2. Factory Pattern                           ");
-            System.out.println("3. State Pattern                             ");
-            System.out.println("4. Strategy Pattern                          ");
-            System.out.println("5. Decorator Pattern                         ");
+            System.out.println("1. Singleton Pattern  (singleton, single)    ");
+            System.out.println("2. Factory Pattern    (factory)              ");
+            System.out.println("3. State Pattern      (state)                ");
+            System.out.println("4. Strategy Pattern   (strategy)             ");
+            System.out.println("5. Decorator Pattern  (decorator)            ");
             System.out.println("0. Thoat                                     ");
             System.out.println("----------------------------------------------");
-            System.out.print("Chon pattern (0-5): ");
 
-            int choice = getIntInput();
+            System.out.print("Lua chon [0-5 hoac tu khoa]: ");
 
-            switch (choice) {
-                case 1:
-                    handleSingletonPattern();
-                    break;
-                case 2:
-                    handleFactoryPattern();
-                    break;
-                case 3:
-                    handleStatePattern();
-                    break;
-                case 4:
-                    handleStrategyPattern();
-                    break;
-                case 5:
-                    handleDecoratorPattern();
-                    break;
-                case 0:
-                    System.out.println("\nCam on ban da su dung! Tam biet!");
-                    return;
-                default:
-                    System.out.println("Lua chon khong hop le! Vui long chon tu 0-5.");
+            String choice = readChoice();
+
+            if (matches(choice, "1", "singleton", "single")) {
+                handleSingletonPattern();
+            } else if (matches(choice, "2", "factory")) {
+                handleFactoryPattern();
+            } else if (matches(choice, "3", "state")) {
+                handleStatePattern();
+            } else if (matches(choice, "4", "strategy")) {
+                handleStrategyPattern();
+            } else if (matches(choice, "5", "decorator")) {
+                handleDecoratorPattern();
+            } else if (matches(choice, "0", "exit", "quit", "thoat")) {
+                System.out.println("\nCam on ban da su dung. Tam biet!");
+                return;
+            } else {
+                System.out.println("Lua chon khong hop le. Vui long chon theo menu.");
             }
 
             System.out.println("\n" + "=".repeat(50));
@@ -68,14 +72,13 @@ public class Main {
         System.out.println("==============================================");
 
         System.out.println("MO TA:");
-        System.out.println("   • Singleton dam bao chi co DUY NHAT 1 instance cua class");
-        System.out.println("   • Vi du: Calculator - chi co 1 may tinh, luu ket qua lien tuc");
-        System.out.println("   • Khi goi getInstance() nhieu lan van tra ve cung 1 object");
+        System.out.println(" - Singleton dam bao chi co DUY NHAT 1 instance cua class");
+        System.out.println(" - Vi du: Calculator chi co 1 may tinh, luu ket qua lien tuc");
+        System.out.println(" - Goi getInstance() nhieu lan van tra ve cung 1 object");
         System.out.println();
-
         System.out.println("HE THONG: CALCULATOR");
-        System.out.println("   • May tinh singleton luu ket qua giua cac phep tinh");
-        System.out.println("   • Ho tro: +, -, *, /, clear, xem ket qua");
+        System.out.println(" - Ho tro: +, -, *, /, clear, xem ket qua");
+        System.out.println(" - Ket qua duoc giu lai qua cac thao tac");
         System.out.println();
 
         runCalculatorDemo();
@@ -86,55 +89,45 @@ public class Main {
 
         while (true) {
             System.out.println("----------------------------------------------");
-            System.out.println("              CALCULATOR MENU                ");
+            System.out.println("               MENU MAY TINH                 ");
             System.out.println("----------------------------------------------");
-            System.out.printf("Ket qua hien tai: %.2f%n", calc.getResult());
+            System.out.printf("Ket qua hien tai: %.4f%n", calc.getResult());
             System.out.println("----------------------------------------------");
-            System.out.println("1. Cong                                      ");
-            System.out.println("2. Tru                                       ");
-            System.out.println("3. Nhan                                      ");
-            System.out.println("4. Chia                                      ");
-            System.out.println("5. Clear (Xoa ket qua)                      ");
-            System.out.println("6. Xem thong tin chi tiet                   ");
-            System.out.println("7. Test tinh Singleton                      ");
-            System.out.println("0. Quay lai menu chinh                      ");
+            System.out.println("1. Cong        (+, cong, add)                ");
+            System.out.println("2. Tru         (-, tru, sub)                 ");
+            System.out.println("3. Nhan        (*, nhan, mul)                ");
+            System.out.println("4. Chia        (/, chia, div)                ");
+            System.out.println("5. Xoa ket qua                                ");
+            System.out.println("6. Xem thong tin chi tiet                     ");
+            System.out.println("7. Kiem tra tinh Singleton                    ");
+            System.out.println("0. Quay lai menu chinh                        ");
             System.out.println("----------------------------------------------");
-            System.out.print("Chon thao tac (0-7): ");
 
-            int choice = getIntInput();
+            System.out.print("Thao tac [0-7 hoac tu khoa]: ");
+            String choice = readChoice();
 
-            switch (choice) {
-                case 1:
-                    performCalculation(calc, "add");
-                    break;
-                case 2:
-                    performCalculation(calc, "subtract");
-                    break;
-                case 3:
-                    performCalculation(calc, "multiply");
-                    break;
-                case 4:
-                    performCalculation(calc, "divide");
-                    break;
-                case 5:
-                    calc.clear();
-                    System.out.println("Da xoa ket qua!");
-                    break;
-                case 6:
-                    calc.showInfo();
-                    break;
-                case 7:
-                    testSingleton();
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Lua chon khong hop le!");
+            if (matches(choice, "1", "+", "add", "cong")) {
+                performCalculation(calc, "add");
+            } else if (matches(choice, "2", "-", "subtract", "sub", "tru")) {
+                performCalculation(calc, "subtract");
+            } else if (matches(choice, "3", "*", "x", "multiply", "mul", "nhan")) {
+                performCalculation(calc, "multiply");
+            } else if (matches(choice, "4", "/", "divide", "div", "chia")) {
+                performCalculation(calc, "divide");
+            } else if (matches(choice, "5", "clear", "reset", "xoa")) {
+                calc.clear();
+                printResult(calc, "Da xoa ket qua.");
+            } else if (matches(choice, "6", "info", "detail", "thongtin")) {
+                calc.showInfo();
+                printResult(calc, "Da hien thi thong tin chi tiet.");
+            } else if (matches(choice, "7", "test", "singletontest")) {
+                testSingleton();
+                printResult(calc, "Da hoan tat kiem tra Singleton.");
+            } else if (matches(choice, "0", "back", "menu", "quaylai")) {
+                return;
+            } else {
+                System.out.println("Thao tac khong hop le.");
             }
-
-            System.out.println("\nKet qua moi: " + calc.getResult());
-            System.out.println("Press Enter de tiep tuc...");
-            scanner.nextLine();
         }
     }
 
@@ -145,24 +138,26 @@ public class Main {
         switch (operation) {
             case "add":
                 calc.add(number);
-                System.out.println("Da cong " + number);
+                printResult(calc, "Da cong " + number);
                 break;
             case "subtract":
                 calc.subtract(number);
-                System.out.println("Da tru " + number);
+                printResult(calc, "Da tru " + number);
                 break;
             case "multiply":
                 calc.multiply(number);
-                System.out.println("Da nhan " + number);
+                printResult(calc, "Da nhan " + number);
                 break;
             case "divide":
                 if (number != 0) {
                     calc.divide(number);
-                    System.out.println("Da chia " + number);
+                    printResult(calc, "Da chia " + number);
                 } else {
-                    System.out.println("Khong the chia cho 0!");
+                    System.out.println("Khong the chia cho 0.");
                 }
                 break;
+            default:
+                System.out.println("Phep tinh khong hop le.");
         }
     }
 
@@ -178,9 +173,9 @@ public class Main {
         System.out.println("calc1 == calc3: " + (calc1 == calc3));
 
         if (calc1 == calc2 && calc2 == calc3) {
-            System.out.println("SINGLETON HOAT DONG DUNG - Chi co 1 instance!");
+            System.out.println("Singleton hoat dong dung - chi co 1 instance.");
         } else {
-            System.out.println("Co loi trong Singleton implementation!");
+            System.out.println("Co loi trong Singleton implementation.");
         }
 
         System.out.println("\nDia chi bo nho:");
@@ -189,53 +184,56 @@ public class Main {
         System.out.println("calc3: " + calc3.hashCode());
     }
 
-    // Cac method cho cac pattern khac (tam thoi)
     private static void handleFactoryPattern() {
-        System.out.println("\nFACTORY PATTERN");
-        System.out.println("Chuc nang dang duoc phat trien...");
-        System.out.println("Press Enter de quay lai...");
-        scanner.nextLine();
+        showNotReady("FACTORY PATTERN");
     }
 
     private static void handleStatePattern() {
-        System.out.println("\nSTATE PATTERN");
-        System.out.println("Chuc nang dang duoc phat trien...");
-        System.out.println("Press Enter de quay lai...");
-        scanner.nextLine();
+        showNotReady("STATE PATTERN");
     }
 
     private static void handleStrategyPattern() {
-        System.out.println("\nSTRATEGY PATTERN");
-        System.out.println("Chuc nang dang duoc phat trien...");
-        System.out.println("Press Enter de quay lai...");
-        scanner.nextLine();
+        showNotReady("STRATEGY PATTERN");
     }
 
     private static void handleDecoratorPattern() {
-        System.out.println("\nDECORATOR PATTERN");
-        System.out.println("Chuc nang dang duoc phat trien...");
-        System.out.println("Press Enter de quay lai...");
+        showNotReady("DECORATOR PATTERN");
+    }
+
+    private static void showNotReady(String patternName) {
+        System.out.println("\n" + patternName);
+        System.out.println("Chuc nang dang duoc phat trien.");
+        pause();
+    }
+
+    private static void pause() {
+        System.out.println("Nhan Enter de tiep tuc...");
         scanner.nextLine();
     }
 
+    private static String readChoice() {
+        return scanner.nextLine().trim().toLowerCase();
+    }
 
-    // Utility methods
-    private static int getIntInput() {
-        while (true) {
-            try {
-                int input = Integer.parseInt(scanner.nextLine().trim());
-                return input;
-            } catch (NumberFormatException e) {
-                System.out.print("Vui long nhap so nguyen hop le: ");
+    private static boolean matches(String input, String... aliases) {
+        for (String alias : aliases) {
+            if (alias.equalsIgnoreCase(input)) {
+                return true;
             }
         }
+        return false;
+    }
+
+    private static void printResult(Calculator calc, String message) {
+        System.out.println(message);
+        System.out.printf("Ket qua moi: %.4f%n", calc.getResult());
     }
 
     private static double getDoubleInput() {
         while (true) {
             try {
-                double input = Double.parseDouble(scanner.nextLine().trim());
-                return input;
+                String normalized = scanner.nextLine().trim().replace(',', '.');
+                return Double.parseDouble(normalized);
             } catch (NumberFormatException e) {
                 System.out.print("Vui long nhap so hop le: ");
             }
