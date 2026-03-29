@@ -1,10 +1,13 @@
 package iuh.fit;
 
-import iuh.fit.factoryPattern.Logistics;
-import iuh.fit.factoryPattern.RoadLogistics;
-import iuh.fit.factoryPattern.SeaLogistics;
 import iuh.fit.singletonPattern.Calculator;
 import iuh.fit.statePattern.Order;
+import iuh.fit.strategyPattern.CancelOrderStrategy;
+import iuh.fit.strategyPattern.DeliveredOrderStrategy;
+import iuh.fit.strategyPattern.NewOrderStrategy;
+import iuh.fit.strategyPattern.OrderProcessor;
+import iuh.fit.strategyPattern.ProcessingOrderStrategy;
+import iuh.fit.strategyPattern.StrategyOrder;
 import java.util.Scanner;
 
 public class Main {
@@ -12,16 +15,25 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Order order1 = new Order("ORD001", "Nguyen Van A", 500000);
+        StrategyOrder order1 = new StrategyOrder("ORD001", "Nguyen Van A", 500000);
+        OrderProcessor processor = new OrderProcessor(new NewOrderStrategy());
+
         order1.displayInfo();
-        order1.processOrder();
-        order1.processOrder();
+        processor.process(order1);
+
+        processor.setStrategy(new ProcessingOrderStrategy());
+        processor.process(order1);
+
+        processor.setStrategy(new DeliveredOrderStrategy());
+        processor.process(order1);
         order1.displayInfo();
+
         System.out.println("--------------------------------------\n");
 
-        Order order2 = new Order("ORD002", "Tran Thi B", 300000);
+        StrategyOrder order2 = new StrategyOrder("ORD002", "Tran Thi B", 300000);
         order2.displayInfo();
-        order2.cancelOrder();
+        processor.setStrategy(new CancelOrderStrategy());
+        processor.process(order2);
         order2.displayInfo();
     }
 
