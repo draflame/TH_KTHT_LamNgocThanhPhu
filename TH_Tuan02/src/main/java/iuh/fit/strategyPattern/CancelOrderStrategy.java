@@ -6,6 +6,7 @@ public class CancelOrderStrategy implements OrderOperationStrategy {
         if (order.isDelivered()) {
             System.out.println("[HUY] Don hang da giao, khong the huy.");
             return;
+
         }
 
         order.markCancelled();
