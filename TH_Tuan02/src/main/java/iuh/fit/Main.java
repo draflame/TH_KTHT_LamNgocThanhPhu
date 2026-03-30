@@ -1,39 +1,44 @@
 package iuh.fit;
 
+import iuh.fit.decoratorPattern.BasicOrderComponent;
+import iuh.fit.decoratorPattern.CancelAndRefundDecorator;
+import iuh.fit.decoratorPattern.DecoratorOrder;
+import iuh.fit.decoratorPattern.NotificationDecorator;
+import iuh.fit.decoratorPattern.OrderComponent;
+import iuh.fit.decoratorPattern.PackingDecorator;
+import iuh.fit.decoratorPattern.ShippingDecorator;
+import iuh.fit.decoratorPattern.ValidationDecorator;
 import iuh.fit.singletonPattern.Calculator;
 import iuh.fit.statePattern.Order;
-import iuh.fit.strategyPattern.CancelOrderStrategy;
-import iuh.fit.strategyPattern.DeliveredOrderStrategy;
-import iuh.fit.strategyPattern.NewOrderStrategy;
-import iuh.fit.strategyPattern.OrderProcessor;
-import iuh.fit.strategyPattern.ProcessingOrderStrategy;
-import iuh.fit.strategyPattern.StrategyOrder;
 import java.util.Scanner;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        DecoratorOrder order1 = new DecoratorOrder("DCR001", "Nguyen Van A", 500000);
+        OrderComponent successFlow = new NotificationDecorator(
+                new ShippingDecorator(
+                        new PackingDecorator(
+                                new ValidationDecorator(
+                                        new BasicOrderComponent()))));
 
-        StrategyOrder order1 = new StrategyOrder("ORD001", "Nguyen Van A", 500000);
-        OrderProcessor processor = new OrderProcessor(new NewOrderStrategy());
-
+        System.out.println("Chuoi decorator (success): " + successFlow.getDescription());
         order1.displayInfo();
-        processor.process(order1);
-
-        processor.setStrategy(new ProcessingOrderStrategy());
-        processor.process(order1);
-
-        processor.setStrategy(new DeliveredOrderStrategy());
-        processor.process(order1);
+        successFlow.process(order1);
         order1.displayInfo();
 
         System.out.println("--------------------------------------\n");
 
-        StrategyOrder order2 = new StrategyOrder("ORD002", "Tran Thi B", 300000);
+        DecoratorOrder order2 = new DecoratorOrder("DCR002", "Tran Thi B", 300000);
+        OrderComponent cancelFlow = new NotificationDecorator(
+                new CancelAndRefundDecorator(
+                        new ValidationDecorator(
+                                new BasicOrderComponent())));
+
+        System.out.println("Chuoi decorator (cancel): " + cancelFlow.getDescription());
         order2.displayInfo();
-        processor.setStrategy(new CancelOrderStrategy());
-        processor.process(order2);
+        cancelFlow.process(order2);
         order2.displayInfo();
     }
 
@@ -320,7 +325,73 @@ public class Main {
     }
 
     private static void handleDecoratorPattern() {
-        showNotReady("DECORATOR PATTERN");
+        System.out.println("\n==============================================");
+        System.out.println("             DECORATOR PATTERN               ");
+        System.out.println("==============================================");
+
+        System.out.println("MO TA:");
+        System.out.println(" - Decorator cho phep mo rong xu ly don hang theo tung lop.");
+        System.out.println(" - Co the ket hop dong: validate -> core -> packing -> shipping -> notify.");
+        System.out.println(" - Ho tro luong huy don va hoan tien ma khong sua lop core.");
+        System.out.println();
+
+        runDecoratorDemo();
+    }
+
+    private static void runDecoratorDemo() {
+        while (true) {
+            System.out.println("----------------------------------------------");
+            System.out.println("       MENU DECORATOR - ORDER PROCESSING     ");
+            System.out.println("----------------------------------------------");
+            System.out.println("1. Demo xu ly don thanh cong                  ");
+            System.out.println("2. Demo huy don va hoan tien                  ");
+            System.out.println("0. Quay lai menu chinh                        ");
+            System.out.println("----------------------------------------------");
+
+            System.out.print("Lua chon: ");
+            String choice = readChoice();
+
+            if (matches(choice, "1", "success", "ok")) {
+                demoDecoratorSuccess();
+            } else if (matches(choice, "2", "cancel", "huy")) {
+                demoDecoratorCancelled();
+            } else if (matches(choice, "0", "back", "quaylai")) {
+                return;
+            } else {
+                System.out.println("Lua chon khong hop le.");
+            }
+        }
+    }
+
+    private static void demoDecoratorSuccess() {
+        DecoratorOrder order = new DecoratorOrder("DCR001", "Le Thi C", 450000);
+
+        OrderComponent flow = new NotificationDecorator(
+                new ShippingDecorator(
+                        new PackingDecorator(
+                                new ValidationDecorator(
+                                        new BasicOrderComponent()))));
+
+        System.out.println("Chuoi decorator: " + flow.getDescription());
+        order.displayInfo();
+        flow.process(order);
+        order.displayInfo();
+        pause();
+    }
+
+    private static void demoDecoratorCancelled() {
+        DecoratorOrder order = new DecoratorOrder("DCR002", "Pham Van D", -120000);
+
+        OrderComponent flow = new NotificationDecorator(
+                new CancelAndRefundDecorator(
+                        new ValidationDecorator(
+                                new BasicOrderComponent())));
+
+        System.out.println("Chuoi decorator: " + flow.getDescription());
+        order.displayInfo();
+        flow.process(order);
+        order.displayInfo();
+        pause();
     }
 
     private static void showNotReady(String patternName) {
