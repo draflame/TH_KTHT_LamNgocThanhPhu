@@ -7,13 +7,13 @@ public class BankTransferPaymentStrategy implements PaymentStrategy {
     public boolean processPayment(Payment payment) {
         System.out.println("[BANK TRANSFER] Initiating bank transfer for " + payment.getCustomer());
         System.out.println("[BANK TRANSFER] Amount: " + payment.getAmount());
-        
+
         // Simulate bank transfer validation
         if (payment.getAmount() > 0 && payment.getAmount() <= 50000000) {
             System.out.println("[BANK TRANSFER] Bank transfer queued!");
             return true;
         }
-        
+
         System.out.println("[BANK TRANSFER] Payment failed - exceeded limit");
         return false;
     }

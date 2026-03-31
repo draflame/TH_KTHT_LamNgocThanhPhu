@@ -7,13 +7,13 @@ public class CreditCardPaymentStrategy implements PaymentStrategy {
     public boolean processPayment(Payment payment) {
         System.out.println("[CREDIT CARD] Processing payment for " + payment.getCustomer());
         System.out.println("[CREDIT CARD] Amount: " + payment.getAmount());
-        
+
         // Simulate payment validation
         if (payment.getAmount() > 0) {
             System.out.println("[CREDIT CARD] Payment authorized!");
             return true;
         }
-        
+
         System.out.println("[CREDIT CARD] Payment failed - invalid amount");
         return false;
     }

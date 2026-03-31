@@ -7,13 +7,13 @@ public class PayPalPaymentStrategy implements PaymentStrategy {
     public boolean processPayment(Payment payment) {
         System.out.println("[PAYPAL] Redirecting to PayPal for " + payment.getCustomer());
         System.out.println("[PAYPAL] Amount: " + payment.getAmount());
-        
+
         // Simulate PayPal validation
         if (payment.getAmount() > 0 && payment.getCustomer() != null) {
             System.out.println("[PAYPAL] Transaction authorized via PayPal!");
             return true;
         }
-        
+
         System.out.println("[PAYPAL] Payment failed");
         return false;
     }

@@ -7,7 +7,8 @@ public class StateTaxDemo {
         TaxOrder normalOrder = new TaxOrder("S001", new TaxableProduct("Sua tuoi", 45000, ProductType.NORMAL));
         runFlow(normalOrder, false);
 
-        TaxOrder luxuryOrder = new TaxOrder("S002", new TaxableProduct("Tui xach cao cap", 8000000, ProductType.LUXURY));
+        TaxOrder luxuryOrder = new TaxOrder("S002",
+                new TaxableProduct("Tui xach cao cap", 8000000, ProductType.LUXURY));
         runFlow(luxuryOrder, false);
 
         TaxOrder exemptOrder = new TaxOrder("S003", new TaxableProduct("Hang xuat khau", 1000000, ProductType.EXCISE));
