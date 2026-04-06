@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app1:
+    image: nginx
+    networks:
+      - mynetwork
+
+  app2:
+    image: redis
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
