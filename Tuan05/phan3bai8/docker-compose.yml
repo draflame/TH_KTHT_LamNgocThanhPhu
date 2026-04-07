@@ -1,0 +1,21 @@
+services:
+  redis:
+    image: redis
+
+  web:
+    image: python:3.9
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+
+  celery:
+    image: python:3.9
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: celery -A proj worker --loglevel=info
+    depends_on:
+      - redis
