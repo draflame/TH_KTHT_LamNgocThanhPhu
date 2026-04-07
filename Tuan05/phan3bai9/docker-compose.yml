@@ -1,0 +1,27 @@
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nextcloud
+    volumes:
+      - db_data:/var/lib/mysql
+
+  redis:
+    image: redis
+
+  app:
+    image: nextcloud
+    ports:
+      - "8080:80"
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  db_data:
