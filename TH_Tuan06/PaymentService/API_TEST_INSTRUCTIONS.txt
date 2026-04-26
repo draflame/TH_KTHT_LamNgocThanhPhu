@@ -1,0 +1,52 @@
+HUONG DAN TEST API PAYMENT SERVICE
+==================================
+
+1. MUC DICH
+Fiile nay duoc tao de huong dan cach gui request len Payment Service ma khong can cap Authorization (do Security da duoc mo public).
+Base URL mac dinh: http://localhost:8080 (ban nho kiem tra port hien taicua ung dung).
+
+----------------------------------
+
+2. CAC API CAN TEST:
+
+A. TAO MOI THANH TOAN (CREATE PAYMENT)
+- URL: POST http://localhost:8080/payments
+- Yeu cau Header: Trang thai "Content-Type"  la  "application/json"
+- Data (Body > raw > JSON):
+
+{
+  "orderId": 12345,
+  "paymentMethod": "BANKING",
+  "amount": 1000000.0,
+  "transactionId": "TXN_VN_202611",
+  "userName": "khach_hang_a"
+}
+
+*Ghi chu: neu ban truyen "paymentMethod" la "COD" thi co the xoa dong "transactionId" hoac de gia tri la null.
+
+- Ket qua dung mong doi:
+Khong bi loi 401 Unauthorized hoac 403 Forbidden.
+He thong tra ve json cua Payment vua duoc luu voi status success (200 OK).
+
+
+B. LAY THONG TIN THANH TOAN (THEO ORDER ID)
+- URL: GET http://localhost:8080/payments/order/{orderId}
+- Vi du: thay {orderId} = 12345 (tu muc A) -> Ghi vao GET http://localhost:8080/payments/order/12345
+- Ket qua dung mong doi: Tra ve danh sach (array) cac thanh toan cho ma don hang do (200 OK).
+
+
+C. LAY THONG TIN THANH TOAN THEO MA (PAYMENT ID)
+- URL: GET http://localhost:8080/payments/{id}
+- Vi du: GET http://localhost:8080/payments/1
+- Ket qua dung mong doi:
+Tra ve 1 Object Json chi tiet ve khoang thanh toan so 1 (200 OK).
+Neu truyen ID khong dung, mong doi he thong se bao loi 404 (Not Found).
+
+----------------------------------
+
+3. HUONG DAN SU DUNG TREN POSTMAN
+Buoc 1: Mo Postman, tao 1  Request moi.
+Buoc 2: Chon kieu Method tuong ung (POST hay GET). Copy cac URL o Phan 2 vao o Address cua Postman.
+Buoc 3: O cac request GET bo qua Tab Authorization. Request POST nho tao theo dung huong dan muc A. (Chon Body > Raw > JSON).
+Buoc 4: An nut Send xanh de nhan ket qua ve !
+
