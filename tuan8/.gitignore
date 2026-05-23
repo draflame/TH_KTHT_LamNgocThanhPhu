@@ -1,0 +1,29 @@
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.env
+.env.local
+.env.*.local
+
+dist/
+build/
+
+.DS_Store
+*.log
+*.swp
+*.swo
+*~
+
+.vscode/
+.idea/
+
+# IDE
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# OS
+Thumbs.db
+.DS_Store

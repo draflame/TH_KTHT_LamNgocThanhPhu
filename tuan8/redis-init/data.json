@@ -1,0 +1,61 @@
+{
+  "products": [
+    {
+      "id": "P001",
+      "name": "Laptop Dell XPS 13",
+      "price": 1299.99,
+      "category": "Electronics"
+    },
+    {
+      "id": "P002",
+      "name": "iPhone 15 Pro",
+      "price": 999.99,
+      "category": "Electronics"
+    },
+    {
+      "id": "P003",
+      "name": "Samsung Galaxy Watch",
+      "price": 349.99,
+      "category": "Wearables"
+    },
+    {
+      "id": "P004",
+      "name": "AirPods Pro",
+      "price": 249.99,
+      "category": "Audio"
+    },
+    {
+      "id": "P005",
+      "name": "Sony WH-1000XM5 Headphones",
+      "price": 399.99,
+      "category": "Audio"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": "P001",
+      "productName": "Laptop Dell XPS 13",
+      "stock": 50
+    },
+    {
+      "productId": "P002",
+      "productName": "iPhone 15 Pro",
+      "stock": 100
+    },
+    {
+      "productId": "P003",
+      "productName": "Samsung Galaxy Watch",
+      "stock": 75
+    },
+    {
+      "productId": "P004",
+      "productName": "AirPods Pro",
+      "stock": 200
+    },
+    {
+      "productId": "P005",
+      "productName": "Sony WH-1000XM5 Headphones",
+      "stock": 60
+    }
+  ]
+}

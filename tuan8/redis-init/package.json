@@ -1,0 +1,16 @@
+{
+  "name": "redis-init",
+  "version": "1.0.0",
+  "description": "Redis data initialization utility",
+  "main": "init-redis.js",
+  "scripts": {
+    "init": "node init-redis.js",
+    "init:dev": "REDIS_HOST=localhost REDIS_PORT=6379 node init-redis.js"
+  },
+  "keywords": ["redis", "initialization", "data"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "redis": "^4.6.5"
+  }
+}

@@ -1,0 +1,405 @@
+{
+  "info": {
+    "name": "E-Commerce Microservices",
+    "description": "Complete API collection for testing the e-commerce platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Product Service",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8081",
+              "path": ["api", "products"]
+            }
+          }
+        },
+        {
+          "name": "Get Single Product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/products/P001",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8081",
+              "path": ["api", "products", "P001"]
+            }
+          }
+        },
+        {
+          "name": "Product Service Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8081",
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cart Service",
+      "item": [
+        {
+          "name": "Get Cart",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/cart/user-demo-123",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8082",
+              "path": ["api", "cart", "user-demo-123"]
+            }
+          }
+        },
+        {
+          "name": "Add to Cart",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"P001\",\n  \"productName\": \"Laptop Dell XPS 13\",\n  \"price\": 1299.99,\n  \"quantity\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/cart/user-demo-123/add",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8082",
+              "path": ["api", "cart", "user-demo-123", "add"]
+            }
+          }
+        },
+        {
+          "name": "Clear Cart",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/cart/user-demo-123/clear",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8082",
+              "path": ["api", "cart", "user-demo-123", "clear"]
+            }
+          }
+        },
+        {
+          "name": "Cart Service Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8082",
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inventory Service",
+      "item": [
+        {
+          "name": "Get All Inventory",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8084/api/inventory",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8084",
+              "path": ["api", "inventory"]
+            }
+          }
+        },
+        {
+          "name": "Get Product Inventory",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8084/api/inventory/P001",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8084",
+              "path": ["api", "inventory", "P001"]
+            }
+          }
+        },
+        {
+          "name": "Reduce Stock",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 2\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8084/api/inventory/P001/reduce",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8084",
+              "path": ["api", "inventory", "P001", "reduce"]
+            }
+          }
+        },
+        {
+          "name": "Check Availability",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\"productId\": \"P001\", \"quantity\": 2},\n    {\"productId\": \"P002\", \"quantity\": 1}\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8084/api/inventory/check-availability",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8084",
+              "path": ["api", "inventory", "check-availability"]
+            }
+          }
+        },
+        {
+          "name": "Inventory Service Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8084/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8084",
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Order Service",
+      "item": [
+        {
+          "name": "Quick Checkout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"user-demo-123\",\n  \"cartData\": {\n    \"items\": [\n      {\n        \"cartItemId\": \"cart-item-1\",\n        \"productId\": \"P001\",\n        \"productName\": \"Laptop Dell XPS 13\",\n        \"price\": 1299.99,\n        \"quantity\": 1\n      }\n    ],\n    \"total\": 1299.99\n  }\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8083/api/checkout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8083",
+              "path": ["api", "checkout"]
+            }
+          }
+        },
+        {
+          "name": "Validated Checkout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"user-demo-123\",\n  \"cartData\": {\n    \"items\": [\n      {\n        \"cartItemId\": \"cart-item-1\",\n        \"productId\": \"P001\",\n        \"productName\": \"Laptop Dell XPS 13\",\n        \"price\": 1299.99,\n        \"quantity\": 1\n      },\n      {\n        \"cartItemId\": \"cart-item-2\",\n        \"productId\": \"P002\",\n        \"productName\": \"iPhone 15 Pro\",\n        \"price\": 999.99,\n        \"quantity\": 2\n      }\n    ],\n    \"total\": 3299.97\n  }\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8083/api/checkout/validated",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8083",
+              "path": ["api", "checkout", "validated"]
+            }
+          }
+        },
+        {
+          "name": "Get Order by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8083/api/orders/order-id-here",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8083",
+              "path": ["api", "orders", "order-id-here"]
+            }
+          }
+        },
+        {
+          "name": "Get User Orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8083/api/orders/user/user-demo-123",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8083",
+              "path": ["api", "orders", "user", "user-demo-123"]
+            }
+          }
+        },
+        {
+          "name": "Order Service Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8083/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8083",
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Complete Workflow Demo",
+      "item": [
+        {
+          "name": "Step 1: Load Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8081",
+              "path": ["api", "products"]
+            }
+          }
+        },
+        {
+          "name": "Step 2: Check Inventory",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8084/api/inventory",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8084",
+              "path": ["api", "inventory"]
+            }
+          }
+        },
+        {
+          "name": "Step 3: Add to Cart",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"P001\",\n  \"productName\": \"Laptop Dell XPS 13\",\n  \"price\": 1299.99,\n  \"quantity\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/cart/user-demo-123/add",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8082",
+              "path": ["api", "cart", "user-demo-123", "add"]
+            }
+          }
+        },
+        {
+          "name": "Step 4: Checkout (FAST)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"user-demo-123\",\n  \"cartData\": {\n    \"items\": [\n      {\n        \"cartItemId\": \"cart-item-1\",\n        \"productId\": \"P001\",\n        \"productName\": \"Laptop Dell XPS 13\",\n        \"price\": 1299.99,\n        \"quantity\": 1\n      }\n    ],\n    \"total\": 1299.99\n  }\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8083/api/checkout/validated",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8083",
+              "path": ["api", "checkout", "validated"]
+            }
+          }
+        },
+        {
+          "name": "Step 5: Verify Stock Reduced",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8084/api/inventory/P001",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8084",
+              "path": ["api", "inventory", "P001"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
