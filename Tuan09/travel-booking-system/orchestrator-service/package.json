@@ -1,0 +1,23 @@
+{
+  "name": "orchestrator-service",
+  "version": "1.0.0",
+  "description": "Orchestrator Service - Điều phối toàn bộ flow",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": ["orchestrator", "service"],
+  "author": "Người 2",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2",
+    "axios": "^1.6.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

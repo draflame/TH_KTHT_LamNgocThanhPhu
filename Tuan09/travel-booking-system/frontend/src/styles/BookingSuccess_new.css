@@ -1,0 +1,182 @@
+.booking-success-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.success-card {
+  background: white;
+  border-radius: 15px;
+  padding: 3rem 2rem;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 102, 204, 0.15);
+  text-align: center;
+  animation: slideUp 0.5s ease-out;
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: bounce 0.6s ease-in-out;
+}
+
+.success-card h2 {
+  color: #0066CC;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.success-card p {
+  color: #666;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.booking-details {
+  background: #E3F2FD;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin: 1.5rem 0;
+  border-left: 4px solid #0066CC;
+  text-align: left;
+}
+
+.booking-details h3 {
+  color: #0066CC;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+}
+
+.detail-row strong {
+  color: #333;
+}
+
+.detail-row span {
+  color: #0066CC;
+  font-weight: 600;
+}
+
+.booking-id {
+  background: #FFF3E0;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  border: 2px dashed #FF9800;
+}
+
+.booking-id-label {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.booking-id-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #FF9800;
+  letter-spacing: 1px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 600;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+
+.status-success {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.status-failed {
+  background: #FFEBEE;
+  color: #C62828;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.new-booking-btn,
+.logout-btn {
+  flex: 1;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.new-booking-btn {
+  background: linear-gradient(135deg, #0066CC, #0084FF);
+  color: white;
+}
+
+.new-booking-btn:hover {
+  background: linear-gradient(135deg, #0052A3, #006FCE);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 102, 204, 0.3);
+}
+
+.logout-btn {
+  background: #f0f0f0;
+  color: #333;
+  border: 2px solid #ddd;
+}
+
+.logout-btn:hover {
+  background: #e8e8e8;
+  border-color: #0066CC;
+  color: #0066CC;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@media (max-width: 480px) {
+  .success-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .success-card h2 {
+    font-size: 1.4rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+}
